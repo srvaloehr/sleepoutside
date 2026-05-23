@@ -22,7 +22,7 @@ export function setClick(selector, callback) {
   qs(selector).addEventListener("click", callback);
 }
 export function getParam(param) {
-  return new URLSearchParams(window.location.search).get(parap); 
+  return new URLSearchParams(window.location.search).get(param); 
 }
 export function renderListWithTemplate(templateFn, parentElement, list, position = 'afterbegin', clear = false) {
   if (clear) {
