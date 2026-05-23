@@ -23,8 +23,12 @@ export default class ProductDetails {
   renderProductDetails() {
     document.querySelector('h3').textContent = this.product.Brand.Name;
     document.querySelector('h2').textContent = this.product.NameWithoutBrand;
-    document.querySelector('img').src = this.product.Image;
-    document.querySelector('img').alt = this.product.Name;
+
+
+const img = document.querySelector('.product-detail img');
+img.src = this.product.Image;
+img.alt = this.product.Name;
+
     document.querySelector('.product-card__price').textContent = `$${this.product.FinalPrice}`;
     document.querySelector('.product__color').textContent = this.product.Colors[0].ColorName;
     document.querySelector('.product__description').innerHTML = this.product.DescriptionHtmlSimple;
