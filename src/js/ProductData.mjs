@@ -23,4 +23,10 @@ export default class ProductData {
     const data = await convertToJson(response);
     return data.Result;
   }
+
+async getAllProducts() {
+  const categories = ['tents', 'backpacks', 'sleeping-bags', 'hammocks'];
+  const results = await Promise.all(categories.map(c => this.getData(c)));
+  return results.flat();
+}
 }
