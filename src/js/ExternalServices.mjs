@@ -1,14 +1,18 @@
 const baseURL = 'https://wdd330-backend.onrender.com/';
 console.log('baseURL:', baseURL);
+
 function convertToJson(res) {
   if (res.ok) {
     return res.json();
   } else {
-    throw new Error("Bad Response");
+    return res.json().then(data => {
+      console.log('Server error:', data);
+      throw new Error('Bad Response');
+    });
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
 
   constructor() {}
 
@@ -28,5 +32,16 @@ async getAllProducts() {
   const categories = ['tents', 'backpacks', 'sleeping-bags', 'hammocks'];
   const results = await Promise.all(categories.map(c => this.getData(c)));
   return results.flat();
+}
+
+async checkout(payload) {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  };
+  return await fetch('https://wdd330-backend.onrender.com/checkout', options).then(convertToJson);
 }
 }
