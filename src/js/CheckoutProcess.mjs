@@ -65,7 +65,7 @@ async checkout(form) {
     const externalServices = new ExternalServices();
     await externalServices.checkout(orderData);
     setLocalStorage('so-cart', []);
-    window.location.href = '/checkout/success.html';
+    window.location.href = '/checkout/success';
   } catch (err) {
      alertMessage(err.message.cardNumber || err.message);
   }
