@@ -12,5 +12,10 @@ document
   .querySelector("#checkout-form")
   .addEventListener("submit", async (e) => {
     e.preventDefault();
-    await checkout.checkout(e.target);
+    const myForm = document.forms[0];
+    const chk_status = myForm.checkValidity();
+    myForm.reportValidity();
+    if (chk_status) {
+      await checkout.checkout(e.target);
+    }
   });

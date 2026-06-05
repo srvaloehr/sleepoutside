@@ -1,5 +1,5 @@
 import ExternalServices from './ExternalServices.mjs';
-import { getLocalStorage } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, alertMessage } from './utils.mjs';
 
 function packageItems(items) {
   return items.map((item) => ({
@@ -53,7 +53,8 @@ export default class CheckoutProcess {
     document.querySelector(`${this.outputSelector} #orderTotal`).innerText = `$${this.orderTotal.toFixed(2)}`;
   }
 
-  async checkout(form) {
+async checkout(form) {
+  try {
     const orderData = formDataToJSON(form);
     orderData.orderDate = new Date().toISOString();
     orderData.orderTotal = this.orderTotal.toFixed(2);
@@ -61,7 +62,12 @@ export default class CheckoutProcess {
     orderData.shipping = this.shipping;
     orderData.items = packageItems(this.list);
 
-  const externalServices = new ExternalServices();
-  const response = await externalServices.checkout(orderData);
+    const externalServices = new ExternalServices();
+    await externalServices.checkout(orderData);
+    setLocalStorage('so-cart', []);
+    window.location.href = '/checkout/success.html';
+  } catch (err) {
+     alertMessage(err.message.cardNumber || err.message);
   }
+}
 }

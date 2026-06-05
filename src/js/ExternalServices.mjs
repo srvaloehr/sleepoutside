@@ -1,16 +1,15 @@
 const baseURL = 'https://wdd330-backend.onrender.com/';
 console.log('baseURL:', baseURL);
 
-function convertToJson(res) {
+async function convertToJson(res) {
+  const jsonResponse = await res.json();
   if (res.ok) {
-    return res.json();
+    return jsonResponse;
   } else {
-    return res.json().then(data => {
-      console.log('Server error:', data);
-      throw new Error('Bad Response');
-    });
+    throw { name: 'servicesError', message: jsonResponse };
   }
 }
+
 
 export default class ExternalServices {
 
