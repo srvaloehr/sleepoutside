@@ -18,7 +18,14 @@ export default class ProductDetails {
     const cart = getLocalStorage('so-cart') || [];
     cart.push(this.product);
     setLocalStorage('so-cart', cart);
-  }
+
+  
+   const cartIcon = document.querySelector('.cart svg');
+  cartIcon.classList.add('cart-animate');
+  cartIcon.addEventListener('animationend', () => {
+    cartIcon.classList.remove('cart-animate');
+  });
+}
 
   renderProductDetails() {
     document.querySelector('h3').textContent = this.product.Brand.Name;

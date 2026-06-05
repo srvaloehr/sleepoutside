@@ -308,3 +308,18 @@ footer {
   font-weight: bold;
   padding: 0 0.5rem;
 }
+@keyframes cartBounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cart-animate {
+  animation: cartBounce 0.5s ease;
+}
